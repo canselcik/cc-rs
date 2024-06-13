@@ -1315,9 +1315,9 @@ impl Build {
         // Add specific C++ libraries, if enabled.
         if self.cpp {
             if let Some(stdlib) = self.get_cpp_link_stdlib()? {
-                self.cargo_output
-                    .print_metadata(&format_args!("cargo:rustc-link-lib={}", stdlib));
-            }
+	    	self.cargo_output.print_warning(&format_args!("Mainline cc-rs package would have tried to link with the libstdc++ using incorrect syntax '{}', so just take care of that yourself since upstream debated on this for 5 years with no proper resolution", stdlib));
+            //.print_metadata(&format_args!("cargo:rustc-link-lib={}", stdlib));
+	    }
         }
 
         let cudart = match &self.cudart {
